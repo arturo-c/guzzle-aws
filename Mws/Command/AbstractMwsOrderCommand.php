@@ -7,6 +7,9 @@
 
 namespace Guzzle\Aws\Mws\Command;
 
+use Guzzle\Aws\QueryStringAuthPlugin;
+use Guzzle\Aws\Signature\SignatureV2;
+
 /**
  * Base class order MWS Order API commands
  *
@@ -17,13 +20,18 @@ namespace Guzzle\Aws\Mws\Command;
  */
 class AbstractMwsOrderCommand extends AbstractMwsCommand
 {
-
+    /**
+     * @var string API version
+     */
+    protected $version = '2011-01-01';
+    
     /**
      * Build the HTTP request
      */
     protected function build()
     {
         parent::build();
+        
         // Change path
         $this->getRequest()->setPath('/Orders/2011-01-01');
 

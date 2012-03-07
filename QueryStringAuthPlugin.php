@@ -60,6 +60,20 @@ class QueryStringAuthPlugin implements Observer
     {
         return $this->apiVersion;
     }
+    
+    /**
+     * Set the API version of the service
+     * 
+     * @param string $version
+     * 
+     * @return QueryStringAuthPlugin 
+     */
+    public function setApiVersion($version)
+    {
+        $this->apiVersion = $version;
+        
+        return $this;
+    }
 
     /**
      * Add required query string fields to a request

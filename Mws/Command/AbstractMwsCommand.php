@@ -23,7 +23,11 @@ use Guzzle\Common\XmlElement;
  */
 class AbstractMwsCommand extends AbstractCommand
 {
-
+    /**
+     * @var string API version
+     */
+    protected $version = '2009-01-01';
+    
     /**
      * @var string MWS operation name
      */
@@ -42,6 +46,12 @@ class AbstractMwsCommand extends AbstractCommand
      */
     protected function build()
     {
+        // Hack, set API version on the fly - different sections have different API versions
+        $observers = $this->getClient()->getEventManager()->getAttached('Guzzle\Aws\QueryStringAuthPlugin');
+        foreach($observers as $observer) {
+            $observer->setApiVersion($this->version);
+        }
+        
         if (!$this->action) {
             // @codeCoverageIgnoreStart
             throw new \Exception('You must define an action name');
